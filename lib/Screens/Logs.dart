@@ -13,14 +13,14 @@ class _LogsState extends State<Logs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xff232940),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff232940),
         elevation: 0,
         title: Text(
           "Logs",
           style: TextStyle(
-              color: Colors.black87, fontWeight: FontWeight.w500, fontSize: 18),
+              color: Colors.white60, fontWeight: FontWeight.w500, fontSize: 18),
         ),
         actions: [
           IconButton(
@@ -28,7 +28,7 @@ class _LogsState extends State<Logs> {
               icon: Icon(
                 Icons.tune,
                 size: 30,
-                color: Colors.black54,
+                color: Colors.white70,
               )),
         ],
         leading: IconButton(
@@ -38,7 +38,7 @@ class _LogsState extends State<Logs> {
             icon: Icon(
               CupertinoIcons.back,
               size: 30,
-              color: Colors.black87,
+              color: Colors.white,
             )),
       ),
       body: SafeArea(
@@ -64,21 +64,21 @@ class _LogsState extends State<Logs> {
                           Text(
                             "Schedule Name",
                             style: TextStyle(
-                                color: Colors.black54,
+                                color: Colors.white60,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16),
                           ),
                           Text(
                             "Track Name",
                             style: TextStyle(
-                                color: Colors.black45,
+                                color: Colors.white54,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 14),
                           ),
                           Text(
                             "Executed on 2021/07/3 Thursday 9 pm",
                             style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.white54,
                                 fontWeight: FontWeight.w400,
                                 fontSize: 13),
                           ),
@@ -93,14 +93,14 @@ class _LogsState extends State<Logs> {
                                     '2023-06-10 05:21:37.712498'))
                                 .toString(),
                             style: TextStyle(
-                                color: Colors.grey,
+                                color: Colors.white38,
                                 fontWeight: FontWeight.w500,
                                 fontSize: 11),
                           ),
                           Row(
                             children: [
                               Icon(CupertinoIcons.music_note,
-                                  color: Colors.grey),
+                                  color: Colors.white38),
                               SizedBox(
                                 width: 20,
                               ),
@@ -111,9 +111,10 @@ class _LogsState extends State<Logs> {
                     ],
                   ),
                   decoration: BoxDecoration(
+                    color: Color(0xff333761),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: Colors.grey, // Set the border color here
+                      color: Color(0xff333761), // Set the border color here
                       width: 0.5, // Set the border width here
                     ),
                   )),

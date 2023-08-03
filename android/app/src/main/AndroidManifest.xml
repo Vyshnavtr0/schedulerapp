@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     
    <application
-        android:label="schedulerapp"
+        android:label="Grove Scheduler"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         >

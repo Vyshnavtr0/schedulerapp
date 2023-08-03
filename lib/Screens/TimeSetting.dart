@@ -37,14 +37,14 @@ class _TimeSettingState extends State<TimeSetting> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xff232940),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff232940),
         elevation: 0,
         title: Text(
           "Time Setting",
           style: TextStyle(
-              color: Colors.black87, fontWeight: FontWeight.w500, fontSize: 18),
+              color: Colors.white60, fontWeight: FontWeight.w500, fontSize: 18),
         ),
         actions: [
           IconButton(
@@ -52,7 +52,7 @@ class _TimeSettingState extends State<TimeSetting> {
               icon: Icon(
                 CupertinoIcons.refresh,
                 size: 30,
-                color: Colors.black54,
+                color: Colors.white54,
               )),
         ],
         leading: IconButton(
@@ -62,7 +62,7 @@ class _TimeSettingState extends State<TimeSetting> {
             icon: Icon(
               CupertinoIcons.back,
               size: 30,
-              color: Colors.black87,
+              color: Colors.white70,
             )),
       ),
       body: SafeArea(
@@ -73,6 +73,14 @@ class _TimeSettingState extends State<TimeSetting> {
             padding: EdgeInsets.all(15.0),
             child: AnalogClock(
               dateTime: _currentTime,
+              dialBorderColor: Color(0xff333761),
+              dialColor: Color(0xff333761),
+              centerPointColor: Colors.white,
+              markingColor: Colors.white60,
+              hourHandColor: Colors.white60,
+              hourNumberColor: Colors.white60,
+              minuteHandColor: Colors.white60,
+              secondHandColor: Colors.white60,
               isKeepTime: true,
               child: Align(
                 alignment: FractionalOffset(0.5, 0.75),
@@ -94,7 +102,7 @@ class _TimeSettingState extends State<TimeSetting> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         gradient: LinearGradient(
-                            colors: [Colors.black, Colors.black12])),
+                            colors: [Color(0xff040c29), Color(0xff040c29)])),
                     child: ElevatedButton(
                       style: ButtonStyle(
                           elevation: MaterialStateProperty.all(0),
@@ -105,7 +113,7 @@ class _TimeSettingState extends State<TimeSetting> {
                               top: 15,
                               bottom: 15)),
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.black87),
+                              MaterialStateProperty.all(Color(0xff040c29)),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16)),
@@ -134,7 +142,7 @@ class _TimeSettingState extends State<TimeSetting> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         gradient: LinearGradient(
-                            colors: [Colors.black, Colors.black12])),
+                            colors: [Color(0xff040c29), Color(0xff040c29)])),
                     child: ElevatedButton(
                       style: ButtonStyle(
                           elevation: MaterialStateProperty.all(0),
@@ -145,7 +153,7 @@ class _TimeSettingState extends State<TimeSetting> {
                               top: 15,
                               bottom: 15)),
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.black87),
+                              MaterialStateProperty.all(Color(0xff040c29)),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16)),
@@ -191,7 +199,7 @@ class _TimeSettingState extends State<TimeSetting> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         gradient: LinearGradient(
-                            colors: [Colors.black, Colors.black12])),
+                            colors: [Color(0xff040c29), Color(0xff040c29)])),
                     child: ElevatedButton(
                       style: ButtonStyle(
                           elevation: MaterialStateProperty.all(0),
@@ -202,7 +210,7 @@ class _TimeSettingState extends State<TimeSetting> {
                               top: 15,
                               bottom: 15)),
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.black87),
+                              MaterialStateProperty.all(Color(0xff040c29)),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16)),

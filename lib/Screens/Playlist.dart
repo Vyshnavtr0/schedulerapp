@@ -5,22 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:material_dialogs/material_dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
-import 'package:schedulerapp/Screens/Playlist.dart';
+import 'package:schedulerapp/Screens/SelectTrack.dart';
 import 'package:swipe_to/swipe_to.dart';
 import 'package:wave/config.dart';
 import 'package:wave/wave.dart';
 
-class Tracks extends StatefulWidget {
-  const Tracks({super.key});
+class Playlist extends StatefulWidget {
+  const Playlist({super.key});
 
   @override
-  State<Tracks> createState() => _TracksState();
+  State<Playlist> createState() => _PlaylistState();
 }
 
-class _TracksState extends State<Tracks> {
+class _PlaylistState extends State<Playlist> {
   TextEditingController searchTextController = TextEditingController();
   double width = 0;
   bool play = false;
+  bool selected = false;
+  List<int> isSelected = [];
   double pos = 0.0;
   final player = AudioPlayer();
   late BetterPlayerController _betterPlayerController;
@@ -73,7 +75,7 @@ class _TracksState extends State<Tracks> {
             icon: Icon(
               CupertinoIcons.back,
               size: 30,
-              color: Colors.white,
+              color: Colors.white70,
             )),
         title: Container(
           width: MediaQuery.of(context).size.width / 1.1,
@@ -93,7 +95,7 @@ class _TracksState extends State<Tracks> {
               suffixIcon: PopupMenuButton<String>(
                 icon: Icon(
                   Icons.tune_rounded,
-                  color: Colors.white60,
+                  color: Colors.white54,
                 ),
                 onSelected: (value) {
                   // Handle menu item selection
@@ -124,7 +126,7 @@ class _TracksState extends State<Tracks> {
               ),
               filled: true,
               fillColor: Color(0xff333761),
-              hintText: "Search Tracks",
+              hintText: "Search Tracks in Playlist",
               focusColor: Colors.black,
               hintStyle: const TextStyle(color: Colors.white54),
               contentPadding:
@@ -159,7 +161,12 @@ class _TracksState extends State<Tracks> {
                   padding: const EdgeInsets.all(8.0),
                   child: Icon(CupertinoIcons.delete, color: Colors.red),
                 ),
-
+                onLeftSwipe: () {
+                  setState(() {
+                    selected = true;
+                    isSelected.add(index);
+                  });
+                },
                 onRightSwipe: () {
                   Dialogs.bottomMaterialDialog(
                       msg: 'Are you sure? you can\'t undo this action',
@@ -202,14 +209,14 @@ class _TracksState extends State<Tracks> {
                             Text(
                               "Track Name",
                               style: TextStyle(
-                                  color: Colors.white70,
+                                  color: Colors.white60,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 16),
                             ),
                             Text(
                               "File Name",
                               style: TextStyle(
-                                  color: Colors.white60,
+                                  color: Colors.white54,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 13),
                             ),
@@ -228,7 +235,7 @@ class _TracksState extends State<Tracks> {
                                 Text(
                                   "|",
                                   style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.white60,
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
                                 ),
@@ -238,7 +245,7 @@ class _TracksState extends State<Tracks> {
                                 Text(
                                   "9:56",
                                   style: TextStyle(
-                                      color: Colors.white60,
+                                      color: Colors.white54,
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
                                 ),
@@ -249,11 +256,9 @@ class _TracksState extends State<Tracks> {
                         Row(
                           children: [
                             Icon(
-                                index == 3
-                                    ? CupertinoIcons.music_albums
-                                    : index.isEven
-                                        ? CupertinoIcons.music_note
-                                        : CupertinoIcons.videocam_fill,
+                                index.isEven
+                                    ? CupertinoIcons.music_note
+                                    : CupertinoIcons.videocam_fill,
                                 color: Colors.white60),
                             SizedBox(
                               width: 20,
@@ -262,12 +267,7 @@ class _TracksState extends State<Tracks> {
                                 onPressed: () async {
                                   //musicload();
                                   //final player = AudioPlayer();
-                                  if (index == 3) {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Playlist()));
-                                  } else if (index.isEven) {
+                                  if (index.isEven) {
                                     player.play(UrlSource(
                                         'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'));
                                     setState(() {
@@ -376,8 +376,6 @@ class _TracksState extends State<Tracks> {
                                                                         : CupertinoIcons
                                                                             .play_arrow,
                                                                     size: 30,
-                                                                    color: Colors
-                                                                        .black,
                                                                   ))
                                                             ],
                                                           ),
@@ -581,7 +579,46 @@ class _TracksState extends State<Tracks> {
                                 icon: Icon(
                                   CupertinoIcons.play_arrow,
                                   color: Colors.white,
-                                ))
+                                )),
+                            Visibility(
+                              visible: selected,
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (isSelected.contains(index) == true) {
+                                    setState(() {
+                                      isSelected.remove(index);
+                                    });
+                                  } else {
+                                    setState(() {
+                                      isSelected.add(index);
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  width: 26,
+                                  height: 26,
+                                  decoration: BoxDecoration(
+                                    color: Color(0xff333761),
+                                    borderRadius: BorderRadius.circular(4),
+                                    border: Border.all(
+                                      color: Color(0xff333761),
+                                      width: 2,
+                                    ),
+                                  ),
+                                  child: isSelected.contains(index)
+                                      ? Icon(
+                                          Icons.check_box_rounded,
+                                          color: Colors.white60,
+                                          size: 25,
+                                        )
+                                      : Icon(
+                                          Icons.check_box_outline_blank,
+                                          color: Colors.white70,
+                                          size: 25,
+                                        ),
+                                ),
+                              ),
+                            )
                           ],
                         )
                       ],
@@ -597,43 +634,102 @@ class _TracksState extends State<Tracks> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: DecoratedBox(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      gradient: LinearGradient(
-                          colors: [Color(0xff040c29), Color(0xff040c29)])),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                        elevation: MaterialStateProperty.all(0),
-                        alignment: Alignment.center,
-                        padding: MaterialStateProperty.all(EdgeInsets.only(
-                            right: width / 5,
-                            left: width / 5,
-                            top: 15,
-                            bottom: 15)),
-                        backgroundColor:
-                            MaterialStateProperty.all(Color(0xff040c29)),
-                        shape: MaterialStateProperty.all(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16)),
-                        )),
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(CupertinoIcons.add, size: 20, color: Colors.white),
-                        Text(
-                          "New Track",
-                          style: const TextStyle(
-                              color: Colors.white, fontSize: 16),
-                        ),
-                      ],
-                    ),
-                  )),
+          Visibility(
+            visible: !selected,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        gradient: LinearGradient(
+                            colors: [Color(0xff040c29), Color(0xff040c29)])),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(0),
+                          alignment: Alignment.center,
+                          padding: MaterialStateProperty.all(EdgeInsets.only(
+                              right: width / 5,
+                              left: width / 5,
+                              top: 15,
+                              bottom: 15)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Color(0xff040c29)),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
+                          )),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SelectTrack(
+                                      text: 'addmul',
+                                    )));
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(CupertinoIcons.add,
+                              size: 20, color: Colors.white),
+                          Text(
+                            "Add Track",
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    )),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: selected,
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: DecoratedBox(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        gradient: LinearGradient(
+                            colors: [Colors.black, Colors.black12])),
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          elevation: MaterialStateProperty.all(0),
+                          alignment: Alignment.center,
+                          padding: MaterialStateProperty.all(EdgeInsets.only(
+                              right: width / 5,
+                              left: width / 5,
+                              top: 15,
+                              bottom: 15)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.black87),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16)),
+                          )),
+                      onPressed: () {
+                        setState(() {
+                          selected = !selected;
+                          isSelected.clear();
+                        });
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Icon(CupertinoIcons.delete,
+                              size: 20, color: Colors.white),
+                          Text(
+                            "Remove Tracks",
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    )),
+              ),
             ),
           )
         ],

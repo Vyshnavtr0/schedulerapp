@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:material_dialogs/dialogs.dart';
 import 'package:material_dialogs/widgets/buttons/icon_button.dart';
 import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:schedulerapp/Screens/CreateSchedules.dart';
+import 'package:schedulerapp/Screens/EditSchedules.dart';
 import 'package:swipe_to/swipe_to.dart';
 
 class Schedules extends StatefulWidget {
@@ -20,9 +22,9 @@ class _SchedulesState extends State<Schedules> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0xff232940),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff232940),
         elevation: 0,
         title: Container(
           width: MediaQuery.of(context).size.width / 1.1,
@@ -40,7 +42,10 @@ class _SchedulesState extends State<Schedules> {
             },
             decoration: InputDecoration(
               suffixIcon: PopupMenuButton<String>(
-                icon: Icon(Icons.tune_rounded),
+                icon: Icon(
+                  Icons.tune_rounded,
+                  color: Colors.white54,
+                ),
                 onSelected: (value) {
                   // Handle menu item selection
                   if (value == 'option1') {
@@ -66,11 +71,11 @@ class _SchedulesState extends State<Schedules> {
               ),
               prefixIcon: const Icon(
                 CupertinoIcons.search,
-                color: Colors.grey,
+                color: Colors.white60,
               ),
               filled: true,
-              fillColor: Colors.grey.shade100,
-              hintText: "Search",
+              fillColor: Color(0xff333761),
+              hintText: "Search Schedules",
               focusColor: Colors.black,
               hintStyle: const TextStyle(color: Colors.grey),
               contentPadding:
@@ -79,11 +84,11 @@ class _SchedulesState extends State<Schedules> {
                 borderRadius: BorderRadius.all(Radius.circular(15.0)),
               ),
               enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 1.0),
+                borderSide: BorderSide(color: Color(0xff333761), width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(15.0)),
               ),
               focusedBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.white, width: 2.0),
+                borderSide: BorderSide(color: Color(0xff333761), width: 2.0),
                 borderRadius: BorderRadius.all(Radius.circular(15.0)),
               ),
             ),
@@ -97,7 +102,7 @@ class _SchedulesState extends State<Schedules> {
             icon: Icon(
               CupertinoIcons.back,
               size: 30,
-              color: Colors.black87,
+              color: Colors.white70,
             )),
       ),
       body: SafeArea(
@@ -158,14 +163,14 @@ class _SchedulesState extends State<Schedules> {
                               Text(
                                 "Schedule Name",
                                 style: TextStyle(
-                                    color: Colors.black54,
+                                    color: Colors.white60,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 16),
                               ),
                               Text(
                                 "Track Name",
                                 style: TextStyle(
-                                    color: Colors.black45,
+                                    color: Colors.white54,
                                     fontWeight: FontWeight.w500,
                                     fontSize: 14),
                               ),
@@ -181,21 +186,31 @@ class _SchedulesState extends State<Schedules> {
                           Row(
                             children: [
                               Icon(CupertinoIcons.music_note,
-                                  color: Colors.grey),
+                                  color: Colors.white54),
                               SizedBox(
                                 width: 20,
                               ),
                               IconButton(
-                                  onPressed: () {},
-                                  icon: Icon(Icons.edit_outlined))
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                EditSchedules()));
+                                  },
+                                  icon: Icon(
+                                    Icons.edit_outlined,
+                                    color: Colors.white,
+                                  ))
                             ],
                           )
                         ],
                       ),
                       decoration: BoxDecoration(
+                        color: Color(0xff333761),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: Colors.grey, // Set the border color here
+                          color: Color(0xff333761), // Set the border color here
                           width: 0.5, // Set the border width here
                         ),
                       )),
@@ -210,7 +225,7 @@ class _SchedulesState extends State<Schedules> {
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                         gradient: LinearGradient(
-                            colors: [Colors.black, Colors.black12])),
+                            colors: [Color(0xff040c29), Color(0xff040c29)])),
                     child: ElevatedButton(
                       style: ButtonStyle(
                           elevation: MaterialStateProperty.all(0),
@@ -221,12 +236,17 @@ class _SchedulesState extends State<Schedules> {
                               top: 15,
                               bottom: 15)),
                           backgroundColor:
-                              MaterialStateProperty.all(Colors.black87),
+                              MaterialStateProperty.all(Color(0xff040c29)),
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16)),
                           )),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateSchedule()));
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
